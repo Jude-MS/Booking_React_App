@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainNavigation from './shared/components/Navigation/MainNavigation';
+import Bookings from './bookings/pages/Bookings';
+import NewBooking from './bookings/pages/NewBooking';
+import UpdateBooking from './bookings/pages/UpdateBooking';
+import { BookingContextProvider } from './shared/context/booking-context';
 
 function App() {
+
+  let routes = (
+    <Routes>
+        <Route index element={<Bookings />} />
+        <Route path="/bookings/:bid" element={<UpdateBooking />} />
+        <Route path="/new-booking" element={<NewBooking />} />
+    </Routes>
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BookingContextProvider>
+      <Router>
+        <MainNavigation />
+          <main>
+            {routes}
+          </main>
+      </Router>
+    </BookingContextProvider>
   );
 }
 
 export default App;
+
