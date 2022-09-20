@@ -18,24 +18,20 @@ export const VALIDATOR_MINLENGTH = val => ({
 });
 
 export const validate = (value, validators) => {
-  console.log('validators', validators)
   let isValid = true;
   for (const validator of validators) {
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
       isValid = isValid && value.trim().length > 0;
     }
     if (validator.type === VALIDATOR_TYPE_START_DATE) {
-      console.log('validator.val -- start', validator.val)
       isValid = isValid && validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_END_DATE) {
-      console.log('validator.val -- end', validator.val)
       isValid = isValid && validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_MINLENGTH) {
       isValid = isValid && value.trim().length >= validator.val;
     }
   }
-  console.log('isValid', isValid)
   return isValid;
 };

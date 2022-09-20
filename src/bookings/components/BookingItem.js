@@ -32,7 +32,7 @@ const BookingItem = ({ id, fullName, startDateValue, endDateValue }) => {
         footerClass="booking__modal-actions"
         footer={
           <>
-            <Button inverse onClick={cancelDeleteHandler}>
+            <Button onClick={cancelDeleteHandler}>
               CANCEL
             </Button>
             <Button danger onClick={confirmDeleteHandler}>
@@ -58,7 +58,7 @@ const BookingItem = ({ id, fullName, startDateValue, endDateValue }) => {
           </div>
          </div>
         <div className="booking__actions">
-            <Button className="button--small" to={`/${id}/booking`}>EDIT</Button>
+            <Button className="button" to={`/${id}/booking`}>EDIT</Button>
             <Button danger onClick={showDeleteWarningHandler}>
             DELETE
             </Button>

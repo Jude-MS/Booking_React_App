@@ -17,11 +17,6 @@
     color: #212642;
   }
   
-  .booking-item a:hover,
-  .booking-item a:active {
-    background: #caccda;
-  }
-  
   .booking-item__content {
     padding: 0;
     margin-bottom: 6px;
