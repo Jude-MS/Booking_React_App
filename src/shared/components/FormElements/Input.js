@@ -18,7 +18,7 @@ const inputReducer = (state, action) => {
         ...state,
         startDateValue: action.start,
         endDateValue: action.end,
-        isValid: true,
+        isValid: validate(action.val, action.validators),
       };
     case "TOUCH": {
       return {
@@ -34,8 +34,8 @@ const inputReducer = (state, action) => {
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || "",
-    startDateValue: props.initialValue || new Date(),
-    endDateValue: props.initialValue || null,
+    startDateValue: props.initialStartValue || new Date(),
+    endDateValue: props.initialEndValue || new Date(),
     isTouched: false,
     isValid: props.initialValid || false,
   });
@@ -61,7 +61,7 @@ const Input = (props) => {
       id: props.id,
       start: dates[0],
       end: dates[1],
-      validators: true,
+      validators: props.validators,
     });
   };
 
@@ -91,6 +91,8 @@ const Input = (props) => {
         selectsRange
         inline
         id={props.id}
+        minDate={new Date()}
+        showDisabledMonthNavigation
     />
     );
 

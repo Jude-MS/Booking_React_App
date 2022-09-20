@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 const BookingContext = createContext({
     bookings: [],
+    getBookingById: () => {},
     addBooking: () => {},
     updateBooking: () => {},
     deleteBooking: () => {},
@@ -10,6 +11,8 @@ const BookingContext = createContext({
 
 export const BookingContextProvider = ({children}) => {
     const [bookingState, setBookingState] = useState([]);
+
+    const getBookingById = bookingId => bookingState.find(booking => booking.id === +bookingId);
 
     const addBookingHandler = (booking) => {
         setBookingState(prevBookingState => {
@@ -20,8 +23,8 @@ export const BookingContextProvider = ({children}) => {
     const updateBookingHandler = (bookingUpdated) => {
         setBookingState(prevBookingState => {
             const newBookingState = [...prevBookingState];
-            const getBookingId = newBookingState.findIndex(booking => booking.id !== bookingUpdated.id);
-            newBookingState[getBookingId] = bookingUpdated;
+            const getBookingIndex = newBookingState.findIndex(booking => +booking.id === +bookingUpdated.id);
+            newBookingState[getBookingIndex] = bookingUpdated;
 
             return newBookingState;
         })
@@ -37,6 +40,7 @@ export const BookingContextProvider = ({children}) => {
 
     const contextValue = {
         bookings: bookingState,
+        getBooking: getBookingById,
         addBooking: addBookingHandler,
         updateBooking: updateBookingHandler,
         deleteBooking: deleteBookingHandler,

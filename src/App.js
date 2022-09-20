@@ -11,7 +11,8 @@ function App() {
   let routes = (
     <Routes>
         <Route index element={<Bookings />} />
-        <Route path="/bookings/:bid" element={<UpdateBooking />} />
+        <Route path='/bookings' element={<Bookings />} />
+        <Route path="/:bookingId/booking" element={<UpdateBooking />} />
         <Route path="/new-booking" element={<NewBooking />} />
     </Routes>
   );

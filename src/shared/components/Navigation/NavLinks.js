@@ -9,7 +9,7 @@ const NavLinks = props => {
     return (
         <ul className="nav-links">
             <li>
-                <NavLink to="/" exact>Bookings 
+                <NavLink to="/bookings">Bookings 
                 <span className="nav-links--badge">
                     {bookingContext.totalBookings}
                 </span>
@@ -17,9 +17,6 @@ const NavLinks = props => {
             </li>
             <li>
                 <NavLink to="/new-booking">New Booking</NavLink>
-            </li>
-            <li>
-                <NavLink to="/bookings/:mid">Booking Details</NavLink>
             </li>
         </ul>
     )
