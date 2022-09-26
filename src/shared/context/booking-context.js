@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const BookingContext = createContext({
     bookings: [],
@@ -12,12 +12,24 @@ const BookingContext = createContext({
 export const BookingContextProvider = ({children}) => {
     const [bookingState, setBookingState] = useState([]);
 
+    useEffect(() => {
+        const bookingData = JSON.parse(localStorage.getItem('bookingData'));
+        if (bookingData) {
+            setBookingState(prevState => prevState.concat(bookingData));
+        }
+
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('bookingData', JSON.stringify(bookingState));
+    }, [bookingState]);
+
     const getBookingById = bookingId => bookingState.find(booking => booking.id === +bookingId);
 
     const addBookingHandler = (booking) => {
         setBookingState(prevBookingState => {
             return prevBookingState.concat(booking);
-        })
+        });
     };
 
     const updateBookingHandler = (bookingUpdated) => {
@@ -27,7 +39,7 @@ export const BookingContextProvider = ({children}) => {
             newBookingState[getBookingIndex] = bookingUpdated;
 
             return newBookingState;
-        })
+        });
     };
 
     const deleteBookingHandler = (bookingId) => {
@@ -36,7 +48,7 @@ export const BookingContextProvider = ({children}) => {
         })
     };
 
-    const bookingLength = bookingState.length;
+    const bookingLength = bookingState?.length;
 
     const contextValue = {
         bookings: bookingState,

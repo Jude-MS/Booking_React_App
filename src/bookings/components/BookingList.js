@@ -1,6 +1,7 @@
 import Card from "../../shared/components/UIElements/Card";
 import BookingItem from "./BookingItem";
 import "./BookingList.css";
+import { displayDateFormat } from "../../shared/utils/displayDateFormat";
 
 const BookingList = ({ allBookingList }) => {
   if (allBookingList.length === 0) {
@@ -20,8 +21,9 @@ const BookingList = ({ allBookingList }) => {
             id={booking?.id}
             key={booking?.id}
             fullName={booking?.fullName?.value}
-            startDateValue={booking?.date?.startDateValue.toString()}
-            endDateValue={booking?.date?.endDateValue.toString()}
+            property={booking?.property?.value}
+            startDateValue={displayDateFormat(booking?.date?.startDateValue)}
+            endDateValue={displayDateFormat(booking?.date?.endDateValue)}
           />
         )) || []}
       </ul>

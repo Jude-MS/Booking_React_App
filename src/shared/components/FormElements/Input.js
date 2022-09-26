@@ -31,6 +31,25 @@ const inputReducer = (state, action) => {
   }
 };
 
+const options = [
+  {
+    label: "Hotels",
+    value: "Hotels",
+  },
+  {
+    label: "Villas",
+    value: "Villas",
+  },
+  {
+    label: "Apartments",
+    value: "Apartments",
+  },
+  {
+    label: "Guest Houses",
+    value: "Guest-houses",
+  },
+];
+
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || "",
@@ -52,11 +71,11 @@ const Input = (props) => {
       type: "CHANGE_INPUT",
       val: event.target.value,
       validators: props.validators,
-    }); 
+    });
   };
 
   const changeDateHandler = (dates) => {
-   dispatch({
+    dispatch({
       type: "CHANGE_DATE",
       id: props.id,
       start: dates[0],
@@ -81,6 +100,22 @@ const Input = (props) => {
         onBlur={touchHandler}
         value={inputState.value}
       />
+    ) : props.element === "select" ? (
+      <select
+        id={props.id}
+        type={props.type}
+        placeholder={props.placeholder}
+        onBlur={touchHandler}
+        value={inputState.value}
+        onChange={changeInputHandler}
+      >
+        <option value="">--Please choose a property--</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value} >
+            {option.label}
+          </option>
+        ))}
+      </select>
     ) : (
       <DatePicker
         selected={inputState.startDateValue}
@@ -93,7 +128,7 @@ const Input = (props) => {
         id={props.id}
         minDate={new Date()}
         showDisabledMonthNavigation
-    />
+      />
     );
 
   return (

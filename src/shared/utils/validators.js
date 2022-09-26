@@ -35,3 +35,12 @@ export const validate = (value, validators) => {
   }
   return isValid;
 };
+
+const getISOStringDate = (date) => {
+  let newDate = date && typeof date === 'string' ? new Date(date) : date;
+  return newDate.toDateString()
+};
+
+export const validateRegisteredDate = (start, end, state) => {
+  return state.findIndex(booking => getISOStringDate(booking.date.startDateValue) === getISOStringDate(start) && getISOStringDate(booking.date.endDateValue) === getISOStringDate(end)) >= 0 ? true : false;
+}
